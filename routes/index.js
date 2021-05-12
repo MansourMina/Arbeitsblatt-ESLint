@@ -7,9 +7,10 @@ const {
 const router = express.Router();
 
 router.get(
-  '/cocktails/price',
+  '/cocktails',
   asyncHandler(async (req, res) => {
-    const result = await getCocktailsAndPrice();
+    const { price } = req.query;
+    const result = await getCocktailsAndPrice(price);
     res.status(result.code).json(result);
   }),
 );
