@@ -67,9 +67,30 @@ async function addCocktail(cocktail) {
     data: `Inserted ${newCocktailId}`,
   };
 }
+
+async function updatePrice(cocktail, name) {
+  const { rows } = await db.query('SELECT * from cocktail where cname = $1', [
+    name,
+  ]);
+  if (rows.length > 0) {
+    await db.query('UPDATE cocktail SET preis = $1 where cname = $2;', [
+      cocktail.preis,
+      name,
+    ]);
+    return {
+      code: 200,
+      data: `Updated to ${cocktail.preis}`,
+    };
+  }
+  return {
+    code: 404,
+    data: `Cocktail ${name} not found`,
+  };
+}
 module.exports = {
   getCocktailsAndPrice,
   getCocktailZutaten,
   deleteCocktail,
   addCocktail,
+  updatePrice,
 };

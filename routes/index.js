@@ -5,6 +5,7 @@ const {
   getCocktailZutaten,
   deleteCocktail,
   addCocktail,
+  updatePrice,
 } = require('../model/cocktails.js');
 
 const router = express.Router();
@@ -35,6 +36,14 @@ router.post(
   '/cocktails',
   asyncHandler(async (req, res) => {
     const result = await addCocktail(req.body);
+    res.status(result.code).json(result);
+  }),
+);
+
+router.patch(
+  '/cocktails/:name',
+  asyncHandler(async (req, res) => {
+    const result = await updatePrice(req.body, req.params.name);
     res.status(result.code).json(result);
   }),
 );
