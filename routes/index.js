@@ -3,6 +3,7 @@ const asyncHandler = require('express-async-handler');
 const {
   getCocktailsAndPrice,
   getCocktailZutaten,
+  deleteCocktail,
 } = require('../model/cocktails.js');
 const router = express.Router();
 
@@ -18,6 +19,13 @@ router.get(
   '/cocktails/:name/zutaten',
   asyncHandler(async (req, res) => {
     const result = await getCocktailZutaten(req.params.name);
+    res.status(result.code).json(result);
+  }),
+);
+router.delete(
+  '/cocktails/:name',
+  asyncHandler(async (req, res) => {
+    const result = await deleteCocktail(req.params.name);
     res.status(result.code).json(result);
   }),
 );
