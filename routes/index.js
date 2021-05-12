@@ -4,7 +4,9 @@ const {
   getCocktailsAndPrice,
   getCocktailZutaten,
   deleteCocktail,
+  addCocktail,
 } = require('../model/cocktails.js');
+
 const router = express.Router();
 
 router.get(
@@ -26,6 +28,13 @@ router.delete(
   '/cocktails/:name',
   asyncHandler(async (req, res) => {
     const result = await deleteCocktail(req.params.name);
+    res.status(result.code).json(result);
+  }),
+);
+router.post(
+  '/cocktails',
+  asyncHandler(async (req, res) => {
+    const result = await addCocktail(req.body);
     res.status(result.code).json(result);
   }),
 );

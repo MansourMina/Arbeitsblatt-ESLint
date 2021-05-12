@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const errorHandler = (err, req, res, next) => {
   console.log('Error =====>', err.message.red.inverse);
   res.status(500).json({ code: 500, data: 'Server error' });
